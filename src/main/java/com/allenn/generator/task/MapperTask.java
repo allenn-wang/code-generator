@@ -8,4 +8,8 @@ import com.allenn.generator.task.base.Task;
  * @Date 2019-05-17
  */
 public class MapperTask extends Task {
+    @Override
+    public void run() {
+
+    }
 }

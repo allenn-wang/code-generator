@@ -7,7 +7,7 @@ import com.allenn.generator.task.base.Task;
  * @Author Allenn Wang
  * @Date 2019-05-17
  */
-public class EntityTask extends Task {
+public class DomainTask extends Task {
     @Override
     public void run() {
 

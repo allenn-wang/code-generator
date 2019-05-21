@@ -9,4 +9,8 @@ import com.allenn.generator.task.base.Task;
  */
 public class ServiceTask extends Task {
 
+    @Override
+    public void run() {
+
+    }
 }

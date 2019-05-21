@@ -1,21 +1,79 @@
 package com.allenn.generator.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 /**
- * @Description
+ * @Description  code-generator\src\main\resources\generator.yaml
  * @Author Allenn Wang
  * @Date 2019-05-17
  */
 public class Configuration implements Serializable {
     private static final long serialVersionUID = 2821325309161293475L;
-
+    // database instance name
+    private String dataBaseName;
+    // to generate javadoc for author
     private String author;
+    // code's base package, e.g. the service code path: package + "." + path.service
     private String packageName;
-    private String basePackageName;
-    private String autoDir;
+    // the mvc module to generate
     private Path path;
+    // database connection info
     private Db db;
+
+    public void vaildConfiguration() throws Exception {
+        if (StringUtils.isEmpty(this.packageName)) {
+            throw new Exception("Expect package's name, but get a blank String.");
+        }
+
+        if (StringUtils.isEmpty(this.dataBaseName)) {
+            throw new Exception("Expect dataBase's name, but get a blank String.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getDao())) {
+            this.path.dao = "dao";
+            System.out.println("Use default value 'dao' for path.dao, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getController())) {
+            this.path.controller = "controller";
+            System.out.println("Use default value 'controller' for path.controller, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getService())) {
+            this.path.service = "service";
+            System.out.println("Use default value 'service' for path.service, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getImpl())) {
+            this.path.impl = "impl";
+            System.out.println("Use default value 'impl' for path.impl, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getDomain())) {
+            this.path.domain = "domain";
+            System.out.println("Use default value 'domain' for path.domain, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getEntity())) {
+            this.path.entity = "entity";
+            System.out.println("Use default value 'entity' for path.entity, because of unknown configuration.");
+        }
+
+        if (StringUtils.isEmpty(this.path.getMapper())) {
+            this.path.mapper = "mapper";
+            System.out.println("Use default value 'mapper' for path.mapper, because of unknown configuration.");
+        }
+    }
+
+    public String getDataBaseName() {
+        return dataBaseName;
+    }
+
+    public void setDataBaseName(String dataBaseName) {
+        this.dataBaseName = dataBaseName;
+    }
 
     public String getAuthor() {
         return author;
@@ -25,28 +83,12 @@ public class Configuration implements Serializable {
         this.author = author;
     }
 
-    public String getBasePackageName() {
-        return basePackageName == null ? "" : basePackageName + ".";
-    }
-
-    public void setBasePackageName(String basePackageName) {
-        this.basePackageName = basePackageName;
-    }
-
     public String getPackageName() {
         return packageName == null ? "" : packageName + ".";
     }
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
-    }
-
-    public String getAutoDir() {
-        return autoDir;
-    }
-
-    public void setAutoDir(String autoDir) {
-        this.autoDir = autoDir;
     }
 
     public Path getPath() {
@@ -109,17 +151,20 @@ public class Configuration implements Serializable {
         private String service;
         private String impl;
         private String dao;
+        private String domain;
         private String entity;
         private String mapper;
 
         public Path() {
         }
 
-        public Path(String controller, String service, String impl, String dao, String entity, String mapper) {
+        public Path(String controller, String service, String impl, String dao,
+                    String domain, String entity, String mapper) {
             this.controller = controller;
             this.service = service;
             this.impl = impl;
             this.dao = dao;
+            this.domain = domain;
             this.entity = entity;
             this.mapper = mapper;
         }
@@ -154,6 +199,14 @@ public class Configuration implements Serializable {
 
         public void setDao(String dao) {
             this.dao = dao;
+        }
+
+        public String getDomain() {
+            return domain;
+        }
+
+        public void setDomain(String domain) {
+            this.domain = domain;
         }
 
         public String getEntity() {

@@ -1,15 +1,15 @@
+author: allenn wang
+packageName: com.allenn.demo
+dataBaseName: codeGenerator
 db:
   url:
   username:
   password:
-author: allenn wang
-packageName: com.allenn.demo
-basePackageName: com.allenn.demo.base
 path:
   controller: controller
   service: service
   impl: service.impl
   dao: dao
+  domain: domian
   entity: entity
   mapper: mappers
-autoDir: outDir=D:\\autoGenerate

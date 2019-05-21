@@ -10,26 +10,15 @@ import java.io.Serializable;
 public class Column implements Serializable {
     private static final long serialVersionUID = 4002682879447790358L;
 
-    // 列名
     private String name;
-
-    // 注释
     private String annotation;
-
-    // jdbc数据类型
     private String jdbcType;
-
-    // 是否主键
-    private boolean isPrimarykey;
-
-    // 允许为空
-    private boolean isNullAble;
-
-    // 字段长度
+    private boolean primarykey;
+    private boolean nullAble;
     private Integer length;
-
-    // 字段精度
     private Integer scale;
+    private String propertyName;
+    private String javaType;
 
     public String getName() {
         return name;
@@ -56,19 +45,19 @@ public class Column implements Serializable {
     }
 
     public boolean isPrimarykey() {
-        return isPrimarykey;
+        return primarykey;
     }
 
     public void setPrimarykey(boolean primarykey) {
-        isPrimarykey = primarykey;
+        primarykey = primarykey;
     }
 
     public boolean isNullAble() {
-        return isNullAble;
+        return nullAble;
     }
 
     public void setNullAble(boolean nullAble) {
-        isNullAble = nullAble;
+        nullAble = nullAble;
     }
 
     public Integer getLength() {
@@ -87,4 +76,19 @@ public class Column implements Serializable {
         this.scale = scale;
     }
 
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
+    }
 }

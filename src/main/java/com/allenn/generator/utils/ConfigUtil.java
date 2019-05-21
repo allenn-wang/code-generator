@@ -1,6 +1,7 @@
 package com.allenn.generator.utils;
 
 import com.allenn.generator.entity.Configuration;
+import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
@@ -16,7 +17,7 @@ public class ConfigUtil {
 
     static {
         URL url = ConfigUtil.class.getClassLoader().getResource("generator.yaml");
-        if (url == null || url.getPath() == null || "".equals(url.getPath())) {
+        if (url == null || StringUtils.isEmpty(url.getPath())) {
             System.err.println("Can not find file named 'generator.yaml' at resources path, " +
                     "please make sure that you have defined that file.");
             System.exit(0);

@@ -11,14 +11,18 @@ import java.util.List;
 public class Table implements Serializable {
     private static final long serialVersionUID = -1291782123288833803L;
 
-    // 表名
+    private String className;
     private String name;
-
-    // 注释
     private String annotation;
-
-    // 字段集合
     private List<Column> columnList;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public String getName() {
         return name;
