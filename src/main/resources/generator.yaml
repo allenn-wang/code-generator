@@ -1,5 +1,5 @@
 author: allenn wang
-packageName: com.allenn.demo
+basePackageName: com.allenn.demo
 dataBaseName: codeGenerator
 db:
   url:
@@ -10,6 +10,6 @@ path:
   service: service
   impl: service.impl
   dao: dao
-  domain: domian
+  dto: dto
   entity: entity
   mapper: mappers

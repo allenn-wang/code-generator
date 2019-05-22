@@ -17,8 +17,8 @@ public class Column implements Serializable {
     private boolean nullAble;
     private Integer length;
     private Integer scale;
-    private String propertyName;
     private String javaType;
+    private String propertyName;
 
     public String getName() {
         return name;
@@ -76,19 +76,19 @@ public class Column implements Serializable {
         this.scale = scale;
     }
 
-    public String getPropertyName() {
-        return propertyName;
-    }
-
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
-
     public String getJavaType() {
         return javaType;
     }
 
     public void setJavaType(String javaType) {
         this.javaType = javaType;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 }

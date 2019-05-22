@@ -3,7 +3,7 @@ package com.allenn.generator.application;
 import com.allenn.generator.entity.Configuration;
 import com.allenn.generator.generator.BaseGenerator;
 import com.allenn.generator.generator.CommonGenerator;
-import com.allenn.generator.task.base.Task;
+import com.allenn.generator.task.Task;
 import com.allenn.generator.utils.ConfigUtil;
 
 import java.util.LinkedList;
@@ -28,7 +28,7 @@ public class Main {
             Task task = allTasks.poll();
             executorPool.execute(() -> {
                 try {
-                    task.run();
+                    task.exec();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

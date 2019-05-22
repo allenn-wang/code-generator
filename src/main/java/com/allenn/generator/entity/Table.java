@@ -11,18 +11,11 @@ import java.util.List;
 public class Table implements Serializable {
     private static final long serialVersionUID = -1291782123288833803L;
 
-    private String className;
     private String name;
     private String annotation;
+    private String className;
     private List<Column> columnList;
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
+    private Column primaryKeyColumn;
 
     public String getName() {
         return name;
@@ -40,11 +33,27 @@ public class Table implements Serializable {
         this.annotation = annotation;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     public List<Column> getColumnList() {
         return columnList;
     }
 
     public void setColumnList(List<Column> columnList) {
         this.columnList = columnList;
+    }
+
+    public Column getPrimaryKeyColumn() {
+        return primaryKeyColumn;
+    }
+
+    public void setPrimaryKeyColumn(Column primaryKeyColumn) {
+        this.primaryKeyColumn = primaryKeyColumn;
     }
 }

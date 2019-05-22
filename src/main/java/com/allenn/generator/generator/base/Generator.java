@@ -1,6 +1,6 @@
 package com.allenn.generator.generator.base;
 
-import com.allenn.generator.task.base.Task;
+import com.allenn.generator.task.Task;
 
 import java.util.LinkedList;
 

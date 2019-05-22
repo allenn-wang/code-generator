@@ -2,6 +2,7 @@ package com.allenn.generator.db;
 
 import com.allenn.generator.constants.Constant;
 import com.allenn.generator.db.base.AbstractDBHandler;
+import com.allenn.generator.entity.Column;
 import com.allenn.generator.entity.Table;
 import com.allenn.generator.utils.ConfigUtil;
 
@@ -33,30 +34,29 @@ public class MysqlDBHandler extends AbstractDBHandler {
         List<Table> tables = queryTablesDefault(connection, tableSql,
                 new Object[]{ConfigUtil.getConfiguration().getDataBaseName()});
         for (Table table : tables) {
-            table.setColumnList(queryColumnsDefault(connection, columnSql,
-                    new Object[]{ConfigUtil.getConfiguration().getDataBaseName(), table.getName()}));
+            List<Column> columnList = queryColumnsDefault(connection, columnSql,
+                    new Object[]{ConfigUtil.getConfiguration().getDataBaseName(), table.getName()});
+            table.setPrimaryKeyColumn(columnList.stream().filter(c -> c.isPrimarykey()).findFirst().get());
+            table.setColumnList(columnList);
         }
         return tables;
     }
 
     @Override
-    public String getJavaType(String jdbcType, Integer length, Integer scale) {
+    public String getJavaType(String jdbcType) {
         String javaType = Constant.JavaType._STRING;
         if (jdbcType.equalsIgnoreCase("TINYINT")
                 || jdbcType.equalsIgnoreCase("SMALLINT")
                 || jdbcType.equalsIgnoreCase("MEDIUMINT")
                 || jdbcType.equalsIgnoreCase("INT")) {
             javaType = Constant.JavaType._INTEGER;
-        } else if (jdbcType.equalsIgnoreCase("BIGINT")) {
+        } else if (jdbcType.equalsIgnoreCase("BIGINT")
+                || jdbcType.equalsIgnoreCase("DECIMAL")) {
             javaType = Constant.JavaType._LONG;
         } else if (jdbcType.equalsIgnoreCase("DOUBLE")) {
             javaType = Constant.JavaType._DOUBLE;
         } else if (jdbcType.equalsIgnoreCase("FLOAT")) {
             javaType = Constant.JavaType._FLOAT;
-        } else if (jdbcType.equalsIgnoreCase("DECIMAL")) {
-            javaType = (scale == null || scale == 0)
-                    ? (length < 10 ? Constant.JavaType._INTEGER : Constant.JavaType._LONG)
-                    : Constant.JavaType._DOUBLE;;
         } else if (jdbcType.equalsIgnoreCase("DATE")
                 || jdbcType.equalsIgnoreCase("DATETIME")
                 || jdbcType.equalsIgnoreCase("TIME")

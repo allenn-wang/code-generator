@@ -79,7 +79,7 @@ public abstract class AbstractDBHandler implements DBHandler {
                 Table table = new Table();
                 table.setName(resultSet.getString(LABEl_NAME));
                 table.setAnnotation(resultSet.getString(LABEL_ANNOTATION));
-                table.setClassName(getJavaName(table.getName()));
+                table.setClassName(StringUtil.dbName2JavaName(table.getName()));
                 tables.add(table);
             }
         }  catch (Exception e) {
@@ -96,16 +96,7 @@ public abstract class AbstractDBHandler implements DBHandler {
         return tables;
     }
 
-    public String getJavaName(String name) {
-        String[] arrStr = name.split("_");
-        String javaName = "";
-        for (String s : arrStr) {
-            javaName += StringUtil.upperFirstChar(s.toLowerCase());
-        }
-        return javaName;
-    }
-
-    public abstract String getJavaType(String jdbcType, Integer length, Integer scale);
+    public abstract String getJavaType(String jdbcType);
 
     private List<Column> buildColumn(ResultSet resultSet) {
         List<Column> columns = new LinkedList<>();
@@ -119,8 +110,8 @@ public abstract class AbstractDBHandler implements DBHandler {
                 column.setPrimarykey(resultSet.getBoolean(LABEL_PRIMARYKEY));
                 column.setLength(resultSet.getInt(LABEL_LENGTH));
                 column.setScale(resultSet.getInt(LABEL_SCALE));
-                column.setPropertyName(StringUtil.lowerFirstChar(getJavaName(column.getName())));
-                column.setJavaType(getJavaType(column.getJdbcType(), column.getLength(), column.getScale()));
+                column.setJavaType(getJavaType(column.getJdbcType()));
+                column.setPropertyName(StringUtil.lowerFirstChar(StringUtil.dbName2JavaName(column.getName())));
                 columns.add(column);
             }
         }  catch (Exception e) {

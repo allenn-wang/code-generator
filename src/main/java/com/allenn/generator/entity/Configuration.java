@@ -16,14 +16,14 @@ public class Configuration implements Serializable {
     // to generate javadoc for author
     private String author;
     // code's base package, e.g. the service code path: package + "." + path.service
-    private String packageName;
+    private String basePackageName;
     // the mvc module to generate
     private Path path;
     // database connection info
     private Db db;
 
     public void vaildConfiguration() throws Exception {
-        if (StringUtils.isEmpty(this.packageName)) {
+        if (StringUtils.isEmpty(this.basePackageName)) {
             throw new Exception("Expect package's name, but get a blank String.");
         }
 
@@ -47,13 +47,13 @@ public class Configuration implements Serializable {
         }
 
         if (StringUtils.isEmpty(this.path.getImpl())) {
-            this.path.impl = "impl";
-            System.out.println("Use default value 'impl' for path.impl, because of unknown configuration.");
+            this.path.impl = "service.impl";
+            System.out.println("Use default value 'service.impl' for path.impl, because of unknown configuration.");
         }
 
-        if (StringUtils.isEmpty(this.path.getDomain())) {
-            this.path.domain = "domain";
-            System.out.println("Use default value 'domain' for path.domain, because of unknown configuration.");
+        if (StringUtils.isEmpty(this.path.getDto())) {
+            this.path.dto = "dto";
+            System.out.println("Use default value 'dto' for path.domain, because of unknown configuration.");
         }
 
         if (StringUtils.isEmpty(this.path.getEntity())) {
@@ -83,12 +83,12 @@ public class Configuration implements Serializable {
         this.author = author;
     }
 
-    public String getPackageName() {
-        return packageName == null ? "" : packageName + ".";
+    public String getBasePackageName() {
+        return basePackageName;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setBasePackageName(String basePackageName) {
+        this.basePackageName = basePackageName;
     }
 
     public Path getPath() {
@@ -151,7 +151,7 @@ public class Configuration implements Serializable {
         private String service;
         private String impl;
         private String dao;
-        private String domain;
+        private String dto;
         private String entity;
         private String mapper;
 
@@ -159,12 +159,12 @@ public class Configuration implements Serializable {
         }
 
         public Path(String controller, String service, String impl, String dao,
-                    String domain, String entity, String mapper) {
+                    String dto, String entity, String mapper) {
             this.controller = controller;
             this.service = service;
             this.impl = impl;
             this.dao = dao;
-            this.domain = domain;
+            this.dto = dto;
             this.entity = entity;
             this.mapper = mapper;
         }
@@ -201,12 +201,12 @@ public class Configuration implements Serializable {
             this.dao = dao;
         }
 
-        public String getDomain() {
-            return domain;
+        public String getDto() {
+            return dto;
         }
 
-        public void setDomain(String domain) {
-            this.domain = domain;
+        public void setDto(String dto) {
+            this.dto = dto;
         }
 
         public String getEntity() {
