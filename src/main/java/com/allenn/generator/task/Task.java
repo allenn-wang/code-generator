@@ -34,6 +34,14 @@ public class Task {
     private String entityPackageName;
     private String mapperPackageName;
 
+    private String controllerClassName;
+    private String daoClassName;
+    private String dtoClassName;
+    private String serviceClassName;
+    private String serviceImplClassName;
+    private String entityClassName;
+    private String mapperClassName;
+
     public Task(int taskType) {
         this(taskType, null);
     }
@@ -55,6 +63,28 @@ public class Task {
         this.serviceImplPackageName = configuration.getPath().getImpl();
         this.entityPackageName = configuration.getPath().getEntity();
         this.mapperPackageName = configuration.getPath().getMapper();
+
+        this.controllerClassName = StringUtil.upperFirstChar(this.controllerPackageName.lastIndexOf(".") > 0
+                ? this.controllerPackageName.substring(this.controllerPackageName.lastIndexOf(".") + 1)
+                    : this.controllerPackageName);
+        this.daoClassName = StringUtil.upperFirstChar(this.daoPackageName.lastIndexOf(".") > 0
+                ? this.daoPackageName.substring(this.daoPackageName.lastIndexOf(".") + 1)
+                    : this.daoPackageName);
+        this.dtoClassName = StringUtil.upperFirstChar(this.dtoPackageName.lastIndexOf(".") > 0
+                ? this.dtoPackageName.substring(this.dtoPackageName.lastIndexOf(".") + 1)
+                    : this.dtoPackageName);
+        this.serviceClassName = StringUtil.upperFirstChar(this.servicePackageName.lastIndexOf(".") > 0
+                ? this.servicePackageName.substring(this.servicePackageName.lastIndexOf(".") + 1)
+                    : this.servicePackageName);
+        this.serviceImplClassName = StringUtil.upperFirstChar(this.serviceImplPackageName.lastIndexOf(".") > 0
+                ? this.serviceImplPackageName.substring(this.serviceImplPackageName.lastIndexOf(".") + 1)
+                    : this.serviceImplPackageName);
+        this.entityClassName = StringUtil.upperFirstChar(this.entityPackageName.lastIndexOf(".") > 0
+                ? this.entityPackageName.substring(this.entityPackageName.lastIndexOf(".") + 1)
+                    : this.entityPackageName);
+        this.mapperClassName = StringUtil.upperFirstChar(this.mapperPackageName.lastIndexOf(".") > 0
+                ? this.mapperPackageName.substring(this.mapperPackageName.lastIndexOf(".") + 1)
+                : this.mapperPackageName);
     }
 
     public void exec() {
@@ -69,6 +99,14 @@ public class Task {
         model.put(Constant.FtlTag.SERVICE_PACKAGE_NAME, servicePackageName);
         model.put(Constant.FtlTag.SERVICE_IMPL_PACKAGE_NAME, serviceImplPackageName);
         model.put(Constant.FtlTag.ENTITY_PACKAGE_NAME, entityPackageName);
+
+        model.put(Constant.FtlTag.CONTROLLER_CLASS_NAME, controllerClassName);
+        model.put(Constant.FtlTag.DAO_CLASS_NAME, daoClassName);
+        model.put(Constant.FtlTag.DTO_CLASS_NAME, dtoClassName);
+        model.put(Constant.FtlTag.SERVICE_CLASS_NAME, serviceClassName);
+        model.put(Constant.FtlTag.SERVICE_IMPL_CLASS_NAME, serviceImplClassName);
+        model.put(Constant.FtlTag.ENTITY_CLASS_NAME, entityClassName);
+
 
         File file = new File(getFileDir(taskType));
         if (FileUtil.openFile(file)) {
@@ -91,128 +129,66 @@ public class Task {
         StringBuilder fileDirBuilder = new StringBuilder();
         switch (taskType) {
             case Constant.TaskType.MAPPER :
-                fileDirBuilder.append(resourceDir).append(File.separator).append(mapperPackageName)
-                    .append(File.separator).append(table.getClassName())
-                    .append(StringUtil.upperFirstChar(mapperPackageName)).append(".xml");
+                fileDirBuilder.append(resourceDir).append(File.separator)
+                    .append(mapperPackageName.replaceAll("\\.", File.separator))
+                    .append(File.separator).append(table.getClassName()).append(mapperClassName).append(".xml");
+                break;
             case Constant.TaskType.BASE_ENTITY :
-                fileDirBuilder.append(javaBaseDir).append(File.separator).append(entityPackageName)
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(entityPackageName.replaceAll("\\.", File.separator))
                         .append(File.separator).append("base").append(File.separator)
-                        .append("Base").append(StringUtil.upperFirstChar(entityPackageName))
-                        .append(".java");
+                        .append("Base").append(mapperClassName).append(".java");
+                break;
             case Constant.TaskType.BASE_DAO :
-                fileDirBuilder.append(javaBaseDir).append(File.separator).append(daoPackageName)
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(daoPackageName.replaceAll("\\.", File.separator))
                         .append(File.separator).append("base").append(File.separator)
-                        .append("Base").append(StringUtil.upperFirstChar(daoPackageName))
-                        .append(".java");
+                        .append("Base").append(daoClassName).append(".java");
+                break;
             case Constant.TaskType.BASE_SERVICE :
-                fileDirBuilder.append(javaBaseDir).append(File.separator).append(servicePackageName)
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(servicePackageName.replaceAll("\\.", File.separator))
                         .append(File.separator).append("base").append(File.separator)
-                        .append("Base").append(StringUtil.upperFirstChar(servicePackageName))
-                        .append(".java");
+                        .append("Base").append(serviceClassName).append(".java");
+                break;
             case Constant.TaskType.BASE_SERVICE_IMPL :
-                fileDirBuilder.append(javaBaseDir).append(File.separator).append(servicePackageName)
-                    .append(File.separator).append("base").append(File.separator)
-                    .append("Base").append(StringUtil.upperFirstChar(servicePackageName))
-                    .append(".java");
-//            case Constant.TaskType.CONTROLLER :         return instance.getTemplate("Controller.ftl");
-//            case Constant.TaskType.DAO :                return instance.getTemplate("Dao.ftl");
-//            case Constant.TaskType.DTO:                 return instance.getTemplate("Domain.ftl");
-//            case Constant.TaskType.ENTITY :             return instance.getTemplate("Entity.ftl");
-//            case Constant.TaskType.SERVICE_IMPL :       return instance.getTemplate("ServiceImpl.ftl");
-//            case Constant.TaskType.SERVICE :
-                fileDirBuilder.append(javaBaseDir).append(File.separator).append(daoPackageName)
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(serviceImplPackageName.replaceAll("\\.", File.separator))
                         .append(File.separator).append("base").append(File.separator)
-                        .append(table.getClassName()).append(StringUtil.upperFirstChar(daoPackageName))
-                        .append(".java");
-            default:                    return null;
+                        .append("Base").append(serviceImplClassName).append(".java");
+                break;
+            case Constant.TaskType.CONTROLLER :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                    .append(controllerPackageName.replaceAll("\\.", File.separator))
+                    .append(File.separator).append(table.getClassName()).append(controllerClassName).append(".java");
+                break;
+            case Constant.TaskType.DAO :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(daoPackageName.replaceAll("\\.", File.separator))
+                        .append(File.separator).append(table.getClassName()).append(daoClassName).append(".java");
+                break;
+            case Constant.TaskType.DTO:
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(dtoPackageName.replaceAll("\\.", File.separator))
+                        .append(File.separator).append(table.getClassName()).append(dtoClassName).append(".java");
+                break;
+            case Constant.TaskType.ENTITY :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(entityPackageName.replaceAll("\\.", File.separator))
+                        .append(File.separator).append(table.getClassName()).append(entityClassName).append(".java");
+                break;
+            case Constant.TaskType.SERVICE_IMPL :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(serviceImplPackageName.replaceAll("\\.", File.separator))
+                        .append(File.separator).append(table.getClassName()).append(serviceImplClassName).append(".java");
+                break;
+            case Constant.TaskType.SERVICE :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(servicePackageName.replaceAll("\\.", File.separator))
+                        .append(File.separator).append(table.getClassName()).append(serviceClassName).append(".java");
+                break;
         }
-    }
 
-    public int getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(int taskType) {
-        this.taskType = taskType;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getBasePackageName() {
-        return basePackageName;
-    }
-
-    public void setBasePackageName(String basePackageName) {
-        this.basePackageName = basePackageName;
-    }
-
-    public String getControllerPackageName() {
-        return controllerPackageName;
-    }
-
-    public void setControllerPackageName(String controllerPackageName) {
-        this.controllerPackageName = controllerPackageName;
-    }
-
-    public String getDaoPackageName() {
-        return daoPackageName;
-    }
-
-    public void setDaoPackageName(String daoPackageName) {
-        this.daoPackageName = daoPackageName;
-    }
-
-    public String getDtoPackageName() {
-        return dtoPackageName;
-    }
-
-    public void setDtoPackageName(String dtoPackageName) {
-        this.dtoPackageName = dtoPackageName;
-    }
-
-    public String getServicePackageName() {
-        return servicePackageName;
-    }
-
-    public void setServicePackageName(String servicePackageName) {
-        this.servicePackageName = servicePackageName;
-    }
-
-    public String getServiceImplPackageName() {
-        return serviceImplPackageName;
-    }
-
-    public void setServiceImplPackageName(String serviceImplPackageName) {
-        this.serviceImplPackageName = serviceImplPackageName;
-    }
-
-    public String getEntityPackageName() {
-        return entityPackageName;
-    }
-
-    public void setEntityPackageName(String entityPackageName) {
-        this.entityPackageName = entityPackageName;
-    }
-
-    public String getMapperPackageName() {
-        return mapperPackageName;
-    }
-
-    public void setMapperPackageName(String mapperPackageName) {
-        this.mapperPackageName = mapperPackageName;
+        return fileDirBuilder.toString();
     }
 }

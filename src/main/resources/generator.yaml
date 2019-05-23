@@ -1,10 +1,10 @@
 author: allenn wang
-basePackageName: com.allenn.demo
-dataBaseName: codeGenerator
+basePackageName: com.allenn.codegenerator
+dataBaseName: allenn
 db:
-  url:
-  username:
-  password:
+  url: jdbc:mysql://127.0.0.1:3306/allenn
+  username: allenn
+  password: allenn
 path:
   controller: controller
   service: service
@@ -12,4 +12,4 @@ path:
   dao: dao
   dto: dto
   entity: entity
-  mapper: mappers
+  mapper: mapper

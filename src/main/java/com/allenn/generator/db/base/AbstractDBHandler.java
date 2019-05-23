@@ -31,7 +31,7 @@ public abstract class AbstractDBHandler implements DBHandler {
             String username = ConfigUtil.getConfiguration().getDb().getUsername();
             String password = ConfigUtil.getConfiguration().getDb().getPassword();
             connection = DriverManager.getConnection(url, username, password);
-
+            tables = queryTables(connection);
         }  catch (Exception e) {
             e.printStackTrace();
         } finally {
