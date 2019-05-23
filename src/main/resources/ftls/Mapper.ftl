@@ -8,7 +8,7 @@ Date: ${date}
 <mapper namespace="${basePackageName}.${daoPackageName}.${table.className}${daoClassName}" >
     <resultMap id="${table.className}" type="${basePackageName}.${entityPackageName}.${table.className}">
         <#list table.columnList as item>
-        <#if item.isPrimarykey()>
+        <#if item.name = table.primaryKeyColumn.name>
         	<id column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
         <#else>
         	<result column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
@@ -18,7 +18,7 @@ Date: ${date}
     
     <resultMap id="${table.className}${dtoClassName}" type="${basePackageName}.${dtoPackageName}.${table.className}${dtoClassName}">
         <#list table.columnList as item>
-        <#if item.isPrimarykey()>
+        <#if item.name = table.primaryKeyColumn.name>
         	<id column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
         <#else>
         	<result column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
@@ -97,7 +97,7 @@ Date: ${date}
 		update  ${table.name}
 	    <set>
 	<#list table.columnList as item>
-		<#if !item.isPrimarykey()>
+		<#if item.name != table.primaryKeyColumn.name>
 			${item.name} = ${"#{"}${item.propertyName},jdbcType=${item.jdbcType}},
 		</#if>
 	</#list>
@@ -109,7 +109,7 @@ Date: ${date}
   		update  ${table.name}
   		<set>
 	<#list table.columnList as item>
-		<#if !item.isPrimarykey()>
+		<#if item.name != table.primaryKeyColumn.name>
 			<if test="${item.propertyName} != null" >
 				${item.name} = ${"#{"}${item.propertyName},jdbcType=${item.jdbcType}},
 			</if>

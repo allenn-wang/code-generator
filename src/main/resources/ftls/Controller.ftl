@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import ${basePackageName}.${serivcePackageName}.${table.className}${serviceClassName};
-import ${basePackageName}.${controllerPackageName}.base;
+import ${basePackageName}.${servicePackageName}.${table.className}${serviceClassName};
+import ${basePackageName}.${controllerPackageName}.base${controllerClassName};
 
 /**
 * @author：${author} <br/>

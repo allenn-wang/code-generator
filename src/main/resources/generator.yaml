@@ -12,4 +12,4 @@ path:
   dao: dao
   dto: dto
   entity: entity
-  mapper: mapper
+  mapper:

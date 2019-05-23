@@ -1,5 +1,9 @@
 package com.allenn.generator.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+
 /**
  * @Description
  * @Author Allenn Wang
@@ -29,5 +33,17 @@ public class StringUtil {
             javaName += StringUtil.upperFirstChar(s.toLowerCase());
         }
         return javaName;
+    }
+
+    public static String package2Path(String packageName) {
+        if (StringUtils.isBlank(packageName)) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] packages = packageName.split("\\.");
+        for (String str : packages) {
+            sb.append(str).append(File.separator);
+        }
+        return sb.toString();
     }
 }

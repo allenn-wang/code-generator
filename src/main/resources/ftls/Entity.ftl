@@ -17,7 +17,6 @@ public class ${table.className} implements Base${entityClassName} {
 
     <#list table.columnList as item>
     // ${item.annotation}
-	// isNullAble: ${item.nullAble}   length: ${item.length}   scale：${item.scale}
     private ${item.javaType} ${item.propertyName};
 
     </#list>

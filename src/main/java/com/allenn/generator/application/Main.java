@@ -5,6 +5,7 @@ import com.allenn.generator.generator.BaseGenerator;
 import com.allenn.generator.generator.CommonGenerator;
 import com.allenn.generator.task.Task;
 import com.allenn.generator.utils.ConfigUtil;
+import com.allenn.generator.utils.FileUtil;
 
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -20,6 +21,7 @@ public class Main {
             System.exit(0);
         }
 
+        System.out.println("Code output path:" + FileUtil.getProjectTargetJavaPath());
         ExecutorService executorPool = Executors.newCachedThreadPool();
         LinkedList<Task> allTasks = new LinkedList<>();
         allTasks.addAll(new BaseGenerator().generate());

@@ -1,9 +1,12 @@
 package ${basePackageName}.${servicePackageName}.base;
 
+import ${basePackageName}.${entityPackageName}.base.Base${entityClassName};
+import ${basePackageName}.${servicePackageName}.base.Base${serviceClassName};
+
 /**
 * @author：${author} <br/>
 * @date：${date} <br/>
-* @description：${table.annotation}
+* @description：
 */
 public abstract class Base${serviceClassName}${serviceImplClassName}<T extends Base${entityClassName}> implements Base${serviceClassName}<T> {
     public abstract Base${daoClassName}<T> getBase${daoClassName}();

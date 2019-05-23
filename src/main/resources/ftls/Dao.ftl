@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import ${basePackageName}.${daoPackageName}.base.Base${daoClassName};
-import ${basePackageName}.${domainPackageName}.${table.className}${dtoClassName};
+import ${basePackageName}.${dtoPackageName}.${table.className}${dtoClassName};
 import ${basePackageName}.${entityPackageName}.${table.className};
 
 /**

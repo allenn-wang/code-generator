@@ -122,7 +122,7 @@ public class Task {
     }
 
     private String getFileDir(int taskType) {
-        String baseJavaDir = basePackageName.replaceAll("\\.", File.separator);
+        String baseJavaDir = StringUtil.package2Path(basePackageName);
         String javaBaseDir = FileUtil.getProjectTargetJavaPath();
         String resourceDir = FileUtil.getProjectTargetResourcePath();
 
@@ -130,61 +130,67 @@ public class Task {
         switch (taskType) {
             case Constant.TaskType.MAPPER :
                 fileDirBuilder.append(resourceDir).append(File.separator)
-                    .append(mapperPackageName.replaceAll("\\.", File.separator))
+                    .append(StringUtil.package2Path(mapperPackageName))
                     .append(File.separator).append(table.getClassName()).append(mapperClassName).append(".xml");
                 break;
             case Constant.TaskType.BASE_ENTITY :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(entityPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(entityPackageName))
                         .append(File.separator).append("base").append(File.separator)
-                        .append("Base").append(mapperClassName).append(".java");
+                        .append("Base").append(entityClassName).append(".java");
                 break;
             case Constant.TaskType.BASE_DAO :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(daoPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(daoPackageName))
                         .append(File.separator).append("base").append(File.separator)
                         .append("Base").append(daoClassName).append(".java");
                 break;
             case Constant.TaskType.BASE_SERVICE :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(servicePackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(servicePackageName))
                         .append(File.separator).append("base").append(File.separator)
                         .append("Base").append(serviceClassName).append(".java");
                 break;
             case Constant.TaskType.BASE_SERVICE_IMPL :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(serviceImplPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(serviceImplPackageName))
                         .append(File.separator).append("base").append(File.separator)
                         .append("Base").append(serviceImplClassName).append(".java");
                 break;
+            case Constant.TaskType.BASE_CONTROLLER :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(StringUtil.package2Path(controllerPackageName))
+                        .append(File.separator).append("base").append(File.separator)
+                        .append("Base").append(controllerClassName).append(".java");
+                break;
             case Constant.TaskType.CONTROLLER :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                    .append(controllerPackageName.replaceAll("\\.", File.separator))
+                    .append(StringUtil.package2Path(controllerPackageName))
                     .append(File.separator).append(table.getClassName()).append(controllerClassName).append(".java");
                 break;
             case Constant.TaskType.DAO :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(daoPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(daoPackageName))
                         .append(File.separator).append(table.getClassName()).append(daoClassName).append(".java");
                 break;
             case Constant.TaskType.DTO:
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(dtoPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(dtoPackageName))
                         .append(File.separator).append(table.getClassName()).append(dtoClassName).append(".java");
                 break;
             case Constant.TaskType.ENTITY :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(entityPackageName.replaceAll("\\.", File.separator))
-                        .append(File.separator).append(table.getClassName()).append(entityClassName).append(".java");
+                        .append(StringUtil.package2Path(entityPackageName))
+                        .append(File.separator).append(table.getClassName()).append(".java");
                 break;
             case Constant.TaskType.SERVICE_IMPL :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(serviceImplPackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(serviceImplPackageName))
                         .append(File.separator).append(table.getClassName()).append(serviceImplClassName).append(".java");
                 break;
             case Constant.TaskType.SERVICE :
                 fileDirBuilder.append(javaBaseDir).append(File.separator)
-                        .append(servicePackageName.replaceAll("\\.", File.separator))
+                        .append(StringUtil.package2Path(servicePackageName))
                         .append(File.separator).append(table.getClassName()).append(serviceClassName).append(".java");
                 break;
         }

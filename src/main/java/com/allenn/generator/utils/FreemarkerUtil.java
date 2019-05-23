@@ -31,9 +31,10 @@ public class FreemarkerUtil {
             case Constant.TaskType.BASE_DAO :           return instance.getTemplate("BaseDao.ftl");
             case Constant.TaskType.BASE_SERVICE :       return instance.getTemplate("BaseService.ftl");
             case Constant.TaskType.BASE_SERVICE_IMPL :  return instance.getTemplate("BaseServiceImpl.ftl");
+            case Constant.TaskType.BASE_CONTROLLER :    return instance.getTemplate("BaseController.ftl");
             case Constant.TaskType.CONTROLLER :         return instance.getTemplate("Controller.ftl");
             case Constant.TaskType.DAO :                return instance.getTemplate("Dao.ftl");
-            case Constant.TaskType.DTO:                 return instance.getTemplate("Domain.ftl");
+            case Constant.TaskType.DTO:                 return instance.getTemplate("Dto.ftl");
             case Constant.TaskType.ENTITY :             return instance.getTemplate("Entity.ftl");
             case Constant.TaskType.SERVICE_IMPL :       return instance.getTemplate("ServiceImpl.ftl");
             case Constant.TaskType.MAPPER :             return instance.getTemplate("Mapper.ftl");
