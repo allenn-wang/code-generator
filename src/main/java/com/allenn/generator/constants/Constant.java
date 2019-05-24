@@ -19,6 +19,12 @@ public interface Constant {
         int MAPPER = 9;
         int SERVICE = 10;
         int SERVICE_IMPL = 11;
+        int EXCEPTION = 12;
+        int EXCEPTION_HANDLER = 13;
+        int RESULT_CODE_INTERFACE = 14;
+        int RESULT_CODE = 15;
+        int PAGE_OBJECT = 16;
+        int RESULT_OBJECT = 17;
     }
 
     interface JavaType {

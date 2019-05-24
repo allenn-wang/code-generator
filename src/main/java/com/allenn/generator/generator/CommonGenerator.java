@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @Description  common table generator
- *      include mapper/dao/entity/domain/service/service_impl/controller (configurable)
+ *      include mapper/dao/entity/domain/service/serviceImpl/controller
  * @Author Allenn Wang
  * @Date 2019-05-17
  */
@@ -21,8 +21,8 @@ public class CommonGenerator extends AbstractGenerator{
     @Override
     protected LinkedList<Task> generateTask() {
         LinkedList<Task> tasks = new LinkedList<>();
-        List<Table> tables = dbHandler.getAllTables();
-//        List<Table> tables = buildTestTable();
+//        List<Table> tables = dbHandler.getAllTables();
+        List<Table> tables = buildTestTable();
         for (Table table : tables) {
             tasks.add(new Task(Constant.TaskType.CONTROLLER, table));
             tasks.add(new Task(Constant.TaskType.DAO, table));

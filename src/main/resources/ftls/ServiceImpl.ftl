@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 * @description：  ${table.annotation}
 */
 @Service
+@Transactional(rollbackFor = Throwable.class)
 public class ${table.className}${serviceClassName}${serviceImplClassName} extends ${basePackageName?cap_first}${serviceClassName}${serviceImplClassName}<${table.className}, ${table.primaryKeyColumn.javaType}> implements ${table.className}${serviceClassName} {
 	private static final Logger logger = Logger.getLogger(${table.className}${serviceClassName}${serviceImplClassName}.class);
 

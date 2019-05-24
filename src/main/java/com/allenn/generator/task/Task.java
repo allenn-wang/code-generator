@@ -209,6 +209,42 @@ public class Task {
                         .append(StringUtil.package2Path(servicePackageName))
                         .append(File.separator).append(table.getClassName()).append(serviceClassName).append(".java");
                 break;
+            case Constant.TaskType.EXCEPTION :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append("exception").append(File.separator).append("BusinessException.java");
+                break;
+            case Constant.TaskType.EXCEPTION_HANDLER :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                    .append(baseJavaPackage).append(File.separator)
+                    .append(basePackageName).append(File.separator)
+                    .append("exception").append(File.separator).append("BusinessExceptionHandler.java");
+                break;
+            case Constant.TaskType.RESULT_CODE_INTERFACE :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append("exception").append(File.separator).append("IResultCode.java");
+                break;
+            case Constant.TaskType.RESULT_CODE :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append("exception").append(File.separator).append("ResultCode.java");
+                break;
+            case Constant.TaskType.PAGE_OBJECT :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append("common").append(File.separator).append("PageObject.java");
+                break;
+            case Constant.TaskType.RESULT_OBJECT :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append("common").append(File.separator).append("ResultObject.java");
+                break;
         }
 
         return fileDirBuilder.toString();
