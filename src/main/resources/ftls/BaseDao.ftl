@@ -1,18 +1,18 @@
-package ${basePackageName}.${daoPackageName}.base;
+package ${rootPackageName}.${basePackageName}.${daoPackageName};
 
-import ${basePackageName}.${entityPackageName}.base.Base${entityClassName};
+import ${rootPackageName}.${basePackageName}.${entityPackageName}.${basePackageName?cap_first}${entityClassName};
 
 import java.util.List;
 
 /**
-* @author：${author} <br/>
-* @date：${date} <br/>
-* @description：base CRUD operation
+* @author：  ${author}
+* @date：    ${date}
+* @description：  base CRUD operation
 */
-public interface Base${daoClassName}<T extends Base${entityClassName}> {
-    T selectByPrimaryKey(Object id);
+public interface ${basePackageName?cap_first}${daoClassName}<T extends ${basePackageName?cap_first}${entityClassName}, K extends Object> {
+    T selectByPrimaryKey(K id);
 
-    int deleteByPrimaryKey(Object id);
+    int deleteByPrimaryKey(K id);
 
     int insert(T entity);
 

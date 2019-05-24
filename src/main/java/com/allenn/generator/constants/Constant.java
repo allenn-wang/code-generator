@@ -36,6 +36,7 @@ public interface Constant {
         String DATE = "date";
         String TABLE = "table";
         String BASE_PACKAGE_NAME = "basePackageName";
+        String ROOT_PACKAGE_NAME = "rootPackageName";
         String CONTROLLER_PACKAGE_NAME = "controllerPackageName";
         String SERVICE_PACKAGE_NAME = "servicePackageName";
         String SERVICE_IMPL_PACKAGE_NAME = "serviceImplPackageName";

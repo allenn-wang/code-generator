@@ -1,15 +1,19 @@
-package ${basePackageName}.${servicePackageName}.base;
+package ${rootPackageName}.${basePackageName}.${servicePackageName};
+
+import ${rootPackageName}.${basePackageName}.${entityPackageName}.${basePackageName?cap_first}${entityClassName};
+
+import java.util.List;
 
 /**
-* @author：${author} <br/>
-* @date：${date} <br/>
-* @description：base CRUD operation
+* @author：  ${author}
+* @date：    ${date}
+* @description：  base CRUD operation
 */
-public interface Base${serviceClassName}<T extends Base${entityClassName}> {
+public interface ${basePackageName?cap_first}${serviceClassName}<T extends ${basePackageName?cap_first}${entityClassName}, K extends Object> {
 
-    T selectByPrimaryKey(Object id);
+    T selectByPrimaryKey(K id);
 
-    int deleteByPrimaryKey(Object id);
+    int deleteByPrimaryKey(K id);
 
     int insert(T entity);
 

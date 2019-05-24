@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<!--
-	${table.annotation}
-Author：${author}
-Date: ${date}
--->
-<mapper namespace="${basePackageName}.${daoPackageName}.${table.className}${daoClassName}" >
-    <resultMap id="${table.className}" type="${basePackageName}.${entityPackageName}.${table.className}">
+<!-- ${table.annotation} Author：${author} Date: ${date} -->
+<mapper namespace="${rootPackageName}.${daoPackageName}.${table.className}${daoClassName}" >
+    <resultMap id="${table.className}" type="${rootPackageName}.${entityPackageName}.${table.className}">
         <#list table.columnList as item>
         <#if item.name = table.primaryKeyColumn.name>
         	<id column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
@@ -16,7 +12,7 @@ Date: ${date}
         </#list>
     </resultMap>
     
-    <resultMap id="${table.className}${dtoClassName}" type="${basePackageName}.${dtoPackageName}.${table.className}${dtoClassName}">
+    <resultMap id="${table.className}${dtoClassName}" type="${rootPackageName}.${dtoPackageName}.${table.className}${dtoClassName}">
         <#list table.columnList as item>
         <#if item.name = table.primaryKeyColumn.name>
         	<id column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
@@ -61,7 +57,7 @@ Date: ${date}
 		where ${table.primaryKeyColumn.name} = ${"#{"}${table.primaryKeyColumn.propertyName},jdbcType=${table.primaryKeyColumn.jdbcType}}
 	</delete>
   
-    <insert id="insert" parameterType="${basePackageName}.${entityPackageName}.${table.className}">
+    <insert id="insert" parameterType="${rootPackageName}.${entityPackageName}.${table.className}">
 	<![CDATA[
 		insert into ${table.name}(
 		<#list table.columnList as item>
@@ -75,7 +71,7 @@ Date: ${date}
 	]]>
     </insert>
     
-    <insert id="insertSelective" parameterType="${basePackageName}.${entityPackageName}.${table.className}">
+    <insert id="insertSelective" parameterType="${rootPackageName}.${entityPackageName}.${table.className}">
     	insert into ${table.name}
     	<trim prefix="(" suffix=")" suffixOverrides="," >
 		<#list table.columnList as item>
@@ -93,7 +89,7 @@ Date: ${date}
     	</trim>
     </insert>
     
-	<update id="updateByPrimaryKey" parameterType="${basePackageName}.${entityPackageName}.${table.className}" >
+	<update id="updateByPrimaryKey" parameterType="${rootPackageName}.${entityPackageName}.${table.className}" >
 		update  ${table.name}
 	    <set>
 	<#list table.columnList as item>
@@ -105,7 +101,7 @@ Date: ${date}
 		where ${table.primaryKeyColumn.name} = ${"#{"}${table.primaryKeyColumn.propertyName},jdbcType=${table.primaryKeyColumn.jdbcType}}
 	</update>
   
-	<update id="updateByPrimaryKeySelective" parameterType="${basePackageName}.${entityPackageName}.${table.className}" >
+	<update id="updateByPrimaryKeySelective" parameterType="${rootPackageName}.${entityPackageName}.${table.className}" >
   		update  ${table.name}
   		<set>
 	<#list table.columnList as item>

@@ -22,7 +22,7 @@ public class CommonGenerator extends AbstractGenerator{
     protected LinkedList<Task> generateTask() {
         LinkedList<Task> tasks = new LinkedList<>();
         List<Table> tables = dbHandler.getAllTables();
-        //List<Table> tables = buildTestTable();
+//        List<Table> tables = buildTestTable();
         for (Table table : tables) {
             tasks.add(new Task(Constant.TaskType.CONTROLLER, table));
             tasks.add(new Task(Constant.TaskType.DAO, table));

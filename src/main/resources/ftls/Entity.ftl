@@ -1,18 +1,13 @@
-package ${basePackageName}.${entityPackageName};
+package ${rootPackageName}.${entityPackageName};
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
-import ${basePackageName}.${entityPackageName}.base.Base${entityClassName};
+import ${rootPackageName}.${basePackageName}.${entityPackageName}.${basePackageName?cap_first}${entityClassName};
 
 /**
-* @author：${author} <br/>
-* @date：${date} <br/>
-* @description：${table.annotation}
+* @author：  ${author}
+* @date：    ${date}
+* @description：  ${table.annotation}
 */
-public class ${table.className} implements Base${entityClassName} {
+public class ${table.className} implements ${basePackageName?cap_first}${entityClassName} {
 	private static final long serialVersionUID = 1L;
 
     <#list table.columnList as item>
@@ -31,12 +26,10 @@ public class ${table.className} implements Base${entityClassName} {
     }
     </#list>
     
-    @Override
 	public void set_Id(Object id) {
 		this.${table.primaryKeyColumn.propertyName} = (${table.primaryKeyColumn.javaType}) id;
 	}
 
-	@Override
 	public Object get_Id() {
 		return this.${table.primaryKeyColumn.propertyName};
 	}

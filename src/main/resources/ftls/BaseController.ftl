@@ -1,10 +1,10 @@
-package ${basePackageName}.${controllerPackageName}.base;
+package ${rootPackageName}.${basePackageName}.${controllerPackageName};
 
 /**
-* @author：${author} <br/>
-* @date：${date} <br/>
-* @description：do some general operations
+* @author：  ${author}
+* @date：    ${date}
+* @description： do some general operations
 */
-public class Base${controllerClassName} {
+public class ${basePackageName?cap_first}${controllerClassName} {
 
 }

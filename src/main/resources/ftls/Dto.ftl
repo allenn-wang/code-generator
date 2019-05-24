@@ -1,11 +1,11 @@
-package ${basePackageName}.${dtoPackageName};
+package ${rootPackageName}.${dtoPackageName};
 
-import ${basePackageName}.${entityPackageName}.${table.className};
+import ${rootPackageName}.${entityPackageName}.${table.className};
 
 /**
-* @author：${author} <br/>
-* @date：${date} <br/>
-* @description：${table.annotation}
+* @author：  ${author}
+* @date：    ${date}
+* @description：  ${table.annotation}
 */
 public class ${table.className}${dtoClassName} extends ${table.className} {
 

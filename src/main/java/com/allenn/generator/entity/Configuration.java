@@ -15,15 +15,15 @@ public class Configuration implements Serializable {
     private String dataBaseName;
     // to generate javadoc for author
     private String author;
-    // code's base package, e.g. the service code path: package + "." + path.service
-    private String basePackageName;
+    // code's root package, e.g. the service code path: package + "." + path.service
+    private String rootPackageName;
     // the mvc module to generate
     private Path path;
     // database connection info
     private Db db;
 
     public void vaildConfiguration() throws Exception {
-        if (StringUtils.isEmpty(this.basePackageName)) {
+        if (StringUtils.isEmpty(this.rootPackageName)) {
             throw new Exception("Expect package's name, but get a blank String.");
         }
 
@@ -83,12 +83,12 @@ public class Configuration implements Serializable {
         this.author = author;
     }
 
-    public String getBasePackageName() {
-        return basePackageName;
+    public String getRootPackageName() {
+        return rootPackageName;
     }
 
-    public void setBasePackageName(String basePackageName) {
-        this.basePackageName = basePackageName;
+    public void setRootPackageName(String rootPackageName) {
+        this.rootPackageName = rootPackageName;
     }
 
     public Path getPath() {
