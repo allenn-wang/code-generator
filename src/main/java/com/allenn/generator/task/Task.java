@@ -245,6 +245,18 @@ public class Task {
                         .append(basePackageName).append(File.separator)
                         .append("common").append(File.separator).append("ResultObject.java");
                 break;
+            case Constant.TaskType.CRITERION :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(basePackageName).append(File.separator)
+                        .append(StringUtil.package2Path(entityPackageName)).append(File.separator).append("Criterion.java");
+                break;
+            case Constant.TaskType.ENTITY_EXAMPLE :
+                fileDirBuilder.append(javaBaseDir).append(File.separator)
+                        .append(baseJavaPackage).append(File.separator)
+                        .append(StringUtil.package2Path(entityPackageName))
+                        .append(File.separator).append(table.getClassName()).append("Example.java");
+                break;
         }
 
         return fileDirBuilder.toString();

@@ -45,6 +45,8 @@ public class FreemarkerUtil {
             case Constant.TaskType.RESULT_CODE :            return instance.getTemplate("ResultCode.ftl");
             case Constant.TaskType.PAGE_OBJECT :            return instance.getTemplate("PageObject.ftl");
             case Constant.TaskType.RESULT_OBJECT :          return instance.getTemplate("ResultObject.ftl");
+            case Constant.TaskType.CRITERION :              return instance.getTemplate("Criterion.ftl");
+            case Constant.TaskType.ENTITY_EXAMPLE :         return instance.getTemplate("EntityExample.ftl");
             default:                    return null;
         }
     }

@@ -26,6 +26,7 @@ public class BaseGenerator extends AbstractGenerator {
         tasks.add(new Task(Constant.TaskType.BASE_CONTROLLER));
         tasks.add(new Task(Constant.TaskType.BASE_SERVICE));
         tasks.add(new Task(Constant.TaskType.BASE_SERVICE_IMPL));
+        tasks.add(new Task(Constant.TaskType.CRITERION));
         return tasks;
     }
 }

@@ -25,6 +25,8 @@ public interface Constant {
         int RESULT_CODE = 15;
         int PAGE_OBJECT = 16;
         int RESULT_OBJECT = 17;
+        int CRITERION = 18;
+        int ENTITY_EXAMPLE = 19;
     }
 
     interface JavaType {
