@@ -141,14 +141,6 @@ public abstract class AbstractDBHandler implements DBHandler {
             resultSet = preStat.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (preStat != null) {
-                try {
-                    preStat.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return resultSet;
     }
