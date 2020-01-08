@@ -3,9 +3,8 @@ package com.allenn.generator.application;
 import com.allenn.generator.entity.Configuration;
 import com.allenn.generator.generator.BaseGenerator;
 import com.allenn.generator.generator.CommonGenerator;
-import com.allenn.generator.task.Task;
 import com.allenn.generator.utils.ConfigUtil;
-import com.allenn.generator.utils.FileUtil;
+import com.allenn.generator.task.base.Task;
 
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -21,13 +20,12 @@ public class Main {
             System.exit(0);
         }
 
-        System.out.println("Code output path:" + FileUtil.getProjectTargetJavaPath());
         ExecutorService executorPool = Executors.newCachedThreadPool();
-        LinkedList<Task> allTasks = new LinkedList<>();
-        allTasks.addAll(new BaseGenerator().generate());
-        allTasks.addAll(new CommonGenerator().generate());
-        while (!allTasks.isEmpty()) {
-            Task task = allTasks.poll();
+        LinkedList<Task> allTableTasks = new LinkedList<>();
+        allTableTasks.addAll(new BaseGenerator().generate());
+        allTableTasks.addAll(new CommonGenerator().generate());
+        while (!allTableTasks.isEmpty()) {
+            Task task = allTableTasks.poll();
             executorPool.execute(() -> {
                 try {
                     task.exec();

@@ -1,6 +1,7 @@
 package com.allenn.generator.utils;
 
 import com.allenn.generator.entity.Configuration;
+import com.allenn.generator.entity.SysConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
@@ -8,9 +9,9 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * @Description
- * @Author Allenn Wang
- * @Date 2019-05-17
+ * @Description:
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public class ConfigUtil {
     private static Configuration configuration;
@@ -23,7 +24,8 @@ public class ConfigUtil {
             System.exit(0);
         } else {
             InputStream inputStream = ConfigUtil.class.getClassLoader().getResourceAsStream("generator.yaml");
-            configuration = new Yaml().loadAs(inputStream, Configuration.class);
+            SysConfig sysConfig = new Yaml().loadAs(inputStream, SysConfig.class);
+            configuration = sysConfig.getModules().get(sysConfig.getModuleName());
         }
     }
 

@@ -5,9 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 
 /**
- * @Description
- * @Author Allenn Wang
- * @Date 2019-05-21
+ * @Description:
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public class StringUtil {
     public static String upperFirstChar(String str) {

@@ -3,67 +3,64 @@ package com.allenn.generator.entity;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * @Description  code-generator\src\main\resources\generator.yaml
- * @Author Allenn Wang
- * @Date 2019-05-17
+ * @Description: code-generator\src\main\resources\generator.yaml
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public class Configuration implements Serializable {
     private static final long serialVersionUID = 2821325309161293475L;
     // database instance name
     private String dataBaseName;
+
     // to generate javadoc for author
     private String author;
-    // code's root package, e.g. the service code path: package + "." + path.service
+
+    // 默认当前项目target/src 配置后直接生成至配置模块core目录,包括 mapper/dao/service/impl
+    private String coreProjectName;
+
+    // 默认当前项目target/src 配置后直接生成至配置模块base目录,
+    // 包括 BaseController/BaseDao/BaseEntity/BaseService/BaseServiceImpl
+    //      BusinessException/BusinessExceptionHandler/IResultCode/ResultCode/IEnum/ResultObject/PageObject
+    private String commonProjectName;
+
+    // 生成至<commonProjectName>模块  module.<entityModuleName>目录
+    // 包括 DO-data object VO-view object BO-business object
+    private String moduleName = this.dataBaseName;
+
+    // 项目基础包名 code's root package, e.g. the service code path: package + "." + path.service
     private String rootPackageName;
+
+    //是否忽略表名前缀
+    private String ignoreTableNamePrefix = "false";
+
+    //是否需要缓存
+    private String cacheEnable = "false";
+
+    // 是否生成swagger注解
+    private String swaggerEnable = "false";
+
     // the mvc module to generate
     private Path path;
+
     // database connection info
     private Db db;
 
+    private List<String> systemColumns = new LinkedList<>();
+
+    private List<String> buildTables = new LinkedList<>();
+
+    private List<String> cacheTables = new LinkedList<>();
+
     public void vaildConfiguration() throws Exception {
         if (StringUtils.isEmpty(this.rootPackageName)) {
-            throw new Exception("Expect package's name, but get a blank String.");
+            throw new Exception("Unknown rootPackageName.");
         }
-
         if (StringUtils.isEmpty(this.dataBaseName)) {
-            throw new Exception("Expect dataBase's name, but get a blank String.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getDao())) {
-            this.path.dao = "dao";
-            System.out.println("Use default value 'dao' for path.dao, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getController())) {
-            this.path.controller = "controller";
-            System.out.println("Use default value 'controller' for path.controller, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getService())) {
-            this.path.service = "service";
-            System.out.println("Use default value 'service' for path.service, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getImpl())) {
-            this.path.impl = "service.impl";
-            System.out.println("Use default value 'service.impl' for path.impl, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getDto())) {
-            this.path.dto = "dto";
-            System.out.println("Use default value 'dto' for path.domain, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getEntity())) {
-            this.path.entity = "entity";
-            System.out.println("Use default value 'entity' for path.entity, because of unknown configuration.");
-        }
-
-        if (StringUtils.isEmpty(this.path.getMapper())) {
-            this.path.mapper = "mapper";
-            System.out.println("Use default value 'mapper' for path.mapper, because of unknown configuration.");
+            throw new Exception("Unknown dataBaseName.");
         }
     }
 
@@ -83,12 +80,60 @@ public class Configuration implements Serializable {
         this.author = author;
     }
 
+    public String getCoreProjectName() {
+        return coreProjectName;
+    }
+
+    public void setCoreProjectName(String coreProjectName) {
+        this.coreProjectName = coreProjectName;
+    }
+
+    public String getCommonProjectName() {
+        return commonProjectName;
+    }
+
+    public void setCommonProjectName(String commonProjectName) {
+        this.commonProjectName = commonProjectName;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
     public String getRootPackageName() {
         return rootPackageName;
     }
 
     public void setRootPackageName(String rootPackageName) {
         this.rootPackageName = rootPackageName;
+    }
+
+    public String getIgnoreTableNamePrefix() {
+        return ignoreTableNamePrefix;
+    }
+
+    public void setIgnoreTableNamePrefix(String ignoreTableNamePrefix) {
+        this.ignoreTableNamePrefix = ignoreTableNamePrefix;
+    }
+
+    public String getCacheEnable() {
+        return cacheEnable;
+    }
+
+    public void setCacheEnable(String cacheEnable) {
+        this.cacheEnable = cacheEnable;
+    }
+
+    public String getSwaggerEnable() {
+        return swaggerEnable;
+    }
+
+    public void setSwaggerEnable(String swaggerEnable) {
+        this.swaggerEnable = swaggerEnable;
     }
 
     public Path getPath() {
@@ -105,6 +150,30 @@ public class Configuration implements Serializable {
 
     public void setDb(Db db) {
         this.db = db;
+    }
+
+    public List<String> getSystemColumns() {
+        return systemColumns;
+    }
+
+    public void setSystemColumns(List<String> systemColumns) {
+        this.systemColumns = systemColumns;
+    }
+
+    public List<String> getBuildTables() {
+        return buildTables;
+    }
+
+    public void setBuildTables(List<String> buildTables) {
+        this.buildTables = buildTables;
+    }
+
+    public List<String> getCacheTables() {
+        return cacheTables;
+    }
+
+    public void setCacheTables(List<String> cacheTables) {
+        this.cacheTables = cacheTables;
     }
 
     public static class Db {
@@ -147,30 +216,30 @@ public class Configuration implements Serializable {
     }
 
     public static class Path {
-        private String controller;
-        private String service;
-        private String impl;
-        private String dao;
-        private String dto;
-        private String entity;
-        private String mapper;
+        private String controller = "controller";
+        private String service = "service";
+        private String impl = "service.impl";
+        private String dao = "dao";
+        private String entity = "entity";
+        private String mapper = "mapper";
+        private String bo = "bo";
 
         public Path() {
         }
 
-        public Path(String controller, String service, String impl, String dao,
-                    String dto, String entity, String mapper) {
+        public Path(String controller, String service, String impl,
+                    String dao, String entity, String mapper, String bo) {
             this.controller = controller;
             this.service = service;
             this.impl = impl;
             this.dao = dao;
-            this.dto = dto;
             this.entity = entity;
             this.mapper = mapper;
+            this.bo = bo;
         }
 
         public String getController() {
-            return controller == null ? "" : controller;
+            return controller;
         }
 
         public void setController(String controller) {
@@ -178,7 +247,7 @@ public class Configuration implements Serializable {
         }
 
         public String getService() {
-            return service == null ? "" : service;
+            return service;
         }
 
         public void setService(String service) {
@@ -194,23 +263,15 @@ public class Configuration implements Serializable {
         }
 
         public String getDao() {
-            return dao == null ? "" : dao;
+            return dao;
         }
 
         public void setDao(String dao) {
             this.dao = dao;
         }
 
-        public String getDto() {
-            return dto;
-        }
-
-        public void setDto(String dto) {
-            this.dto = dto;
-        }
-
         public String getEntity() {
-            return entity == null ? "" : entity;
+            return entity;
         }
 
         public void setEntity(String entity) {
@@ -218,13 +279,20 @@ public class Configuration implements Serializable {
         }
 
         public String getMapper() {
-            return mapper == null ? "" : mapper;
+            return mapper;
         }
 
         public void setMapper(String mapper) {
             this.mapper = mapper;
         }
 
+        public String getBo() {
+            return bo;
+        }
+
+        public void setBo(String bo) {
+            this.bo = bo;
+        }
     }
 
 }

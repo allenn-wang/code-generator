@@ -4,36 +4,47 @@ import com.allenn.generator.constants.Constant;
 import com.allenn.generator.entity.Column;
 import com.allenn.generator.entity.Table;
 import com.allenn.generator.generator.base.AbstractGenerator;
-import com.allenn.generator.task.Task;
+import com.allenn.generator.task.EnumTask;
+import com.allenn.generator.task.TableTask;
+import com.allenn.generator.task.base.Task;
+import com.allenn.generator.utils.ConfigUtil;
 import com.allenn.generator.utils.StringUtil;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @Description  common table generator
- *      include mapper/dao/entity/domain/service/serviceImpl/controller
- * @Author Allenn Wang
- * @Date 2019-05-17
+ * @Description: base table generator
+ * include mapper/dao/entity/domain/service/serviceImpl/controller
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
-public class CommonGenerator extends AbstractGenerator{
+public class CommonGenerator extends AbstractGenerator {
 
     @Override
     protected LinkedList<Task> generateTask() {
-        LinkedList<Task> tasks = new LinkedList<>();
+        LinkedList<Task> tableTasks = new LinkedList<>();
         List<Table> tables = dbHandler.getAllTables();
 //        List<Table> tables = buildTestTable();
+        List<String> buildTables = ConfigUtil.getConfiguration().getBuildTables();
         for (Table table : tables) {
-            tasks.add(new Task(Constant.TaskType.CONTROLLER, table));
-            tasks.add(new Task(Constant.TaskType.DAO, table));
-            tasks.add(new Task(Constant.TaskType.DTO, table));
-            tasks.add(new Task(Constant.TaskType.ENTITY, table));
-            tasks.add(new Task(Constant.TaskType.SERVICE, table));
-            tasks.add(new Task(Constant.TaskType.SERVICE_IMPL, table));
-            tasks.add(new Task(Constant.TaskType.MAPPER, table));
-            tasks.add(new Task(Constant.TaskType.ENTITY_EXAMPLE, table));
+            if (buildTables != null && buildTables.contains(table.getName())) {
+                tableTasks.add(new TableTask(Constant.TaskType.CONTROLLER, table));
+                tableTasks.add(new TableTask(Constant.TaskType.DAO, table));
+                tableTasks.add(new TableTask(Constant.TaskType.ENTITY, table));
+                tableTasks.add(new TableTask(Constant.TaskType.BO, table));
+                tableTasks.add(new TableTask(Constant.TaskType.SERVICE, table));
+                tableTasks.add(new TableTask(Constant.TaskType.SERVICE_IMPL, table));
+                tableTasks.add(new TableTask(Constant.TaskType.MAPPER, table));
+                tableTasks.add(new TableTask(Constant.TaskType.COMMON_MAPPER, table));
+                for (Column column : table.getColumnList()) {
+                    if (Constant.FieldServiceType.ENUM.equals(column.getCommentOption().getDataType())) {
+                        tableTasks.add(new EnumTask(table, column));
+                    }
+                }
+            }
         }
-        return tasks;
+        return tableTasks;
     }
 
     // For simple test

@@ -8,11 +8,13 @@ import com.allenn.generator.utils.ConfigUtil;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * @Description
- * @Author Allenn Wang
- * @Date 2019-05-17
+ * @Description:
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public class MysqlDBHandler extends AbstractDBHandler {
     private String tableSql = "select table_name as name, table_comment as annotation " +
@@ -22,23 +24,33 @@ public class MysqlDBHandler extends AbstractDBHandler {
             "  ifnull(numeric_precision, ifnull(character_maximum_length, 0)) as length," +
             "  numeric_scale as scale, is_nullable as nullAble, column_comment as annotation, " +
             "  case when column_key = 'PRI' then true else false end as primarykey" +
-            "from information_schema.columns" +
-            "where table_schema = ? and table_name = ? ";
+            " from information_schema.columns" +
+            " where table_schema = ? and table_name = ? order by ordinal_position asc";
 
-    public MysqlDBHandler () {
-        super("com.mysql.jdbc.Driver");
+    public MysqlDBHandler() {
+        // super("com.mysql.jdbc.Driver");
+        super("com.mysql.cj.jdbc.Driver");
     }
 
     @Override
     protected List<Table> queryTables(Connection connection) {
         List<Table> tables = queryTablesDefault(connection, tableSql,
                 new Object[]{ConfigUtil.getConfiguration().getDataBaseName()});
+        Map<String, Table> tableMap =
+                tables.parallelStream().collect(Collectors.toMap(Table::getName, t -> t));
+
         for (Table table : tables) {
             List<Column> columnList = queryColumnsDefault(connection, columnSql,
                     new Object[]{ConfigUtil.getConfiguration().getDataBaseName(), table.getName()});
-            table.setPrimaryKeyColumn(columnList.stream().filter(c -> c.isPrimarykey()).findFirst().get());
             table.setColumnList(columnList);
+            table.doInitBuild(tableMap);
+
+            for (Column col : table.getForeignKeyCols()) {
+                col.setJoinTable(tableMap.get(col.getCommentOption().getJoinTable()));
+            }
         }
+
+
         return tables;
     }
 
@@ -47,12 +59,13 @@ public class MysqlDBHandler extends AbstractDBHandler {
         String javaType = Constant.JavaType._STRING;
         if (jdbcType.equalsIgnoreCase("TINYINT")
                 || jdbcType.equalsIgnoreCase("SMALLINT")
+                || jdbcType.equalsIgnoreCase("INTEGER")
                 || jdbcType.equalsIgnoreCase("MEDIUMINT")
                 || jdbcType.equalsIgnoreCase("INT")) {
             javaType = Constant.JavaType._INTEGER;
         } else if (jdbcType.equalsIgnoreCase("BIGINT")
                 || jdbcType.equalsIgnoreCase("DECIMAL")) {
-            javaType = Constant.JavaType._LONG;
+            javaType = Constant.JavaType._BIGDECIMAL;
         } else if (jdbcType.equalsIgnoreCase("DOUBLE")) {
             javaType = Constant.JavaType._DOUBLE;
         } else if (jdbcType.equalsIgnoreCase("FLOAT")) {
@@ -71,5 +84,17 @@ public class MysqlDBHandler extends AbstractDBHandler {
             javaType = Constant.JavaType._BYTE;
         }
         return javaType;
+    }
+
+    @Override
+    public String getJdbcType(String jdbcType) {
+        if (jdbcType.equalsIgnoreCase("TEXT")) {
+            jdbcType = "LONGVARCHAR";
+        } else if (jdbcType.equalsIgnoreCase("ENUM")) {
+            jdbcType = "CHAR";
+        } else if (jdbcType.equalsIgnoreCase("INT")) {
+            jdbcType = "INTEGER";
+        }
+        return jdbcType.toUpperCase();
     }
 }

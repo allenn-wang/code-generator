@@ -5,9 +5,9 @@ import com.allenn.generator.entity.Table;
 import java.util.List;
 
 /**
- * @Description
- * @Author Allenn Wang
- * @Date 2019-05-17
+ * @Description:
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public interface DBHandler {
     String LABEl_NAME = "name";

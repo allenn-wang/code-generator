@@ -7,9 +7,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 /**
- * @Description
- * @Author Allenn Wang
- * @Date 2019-05-20
+ * @Description:
+ * @Author: allenn wang
+ * @Date: 2016-06-22
  */
 public class FileUtil {
     public static String getProjectTargetJavaPath() {
@@ -17,7 +17,7 @@ public class FileUtil {
     }
 
     public static String getProjectTargetResourcePath() {
-        return getProjectTargetPath("resource");
+        return getProjectTargetPath("resources");
     }
 
     private static String getProjectTargetPath(String pathType) {
