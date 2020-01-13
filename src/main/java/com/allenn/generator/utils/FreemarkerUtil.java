@@ -52,7 +52,7 @@ public class FreemarkerUtil {
             case Constant.TaskType.COMMON_MAPPER :          return instance.getTemplate("CommonMapper.ftl");
             case Constant.TaskType.ENUM :                   return instance.getTemplate("Enum.ftl");
             case Constant.TaskType.BO :                     return instance.getTemplate("Bo.ftl");
-            case Constant.TaskType.BASE_BO :                return instance.getTemplate("BaseBo.ftl");
+            case Constant.TaskType.BASE_POJO:                return instance.getTemplate("BasePojo.ftl");
             default:                    return null;
         }
     }

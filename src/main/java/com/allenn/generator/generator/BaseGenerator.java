@@ -27,7 +27,7 @@ public class BaseGenerator extends AbstractGenerator {
         tableTasks.add(new TableTask(Constant.TaskType.PAGE_OBJECT));
         tableTasks.add(new TableTask(Constant.TaskType.BASE_DAO));
         tableTasks.add(new TableTask(Constant.TaskType.BASE_ENTITY));
-        tableTasks.add(new TableTask(Constant.TaskType.BASE_BO));
+        tableTasks.add(new TableTask(Constant.TaskType.BASE_POJO));
         tableTasks.add(new TableTask(Constant.TaskType.BASE_CONTROLLER));
         tableTasks.add(new TableTask(Constant.TaskType.BASE_SERVICE));
         tableTasks.add(new TableTask(Constant.TaskType.BASE_SERVICE_IMPL));

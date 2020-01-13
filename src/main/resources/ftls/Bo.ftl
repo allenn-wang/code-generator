@@ -1,6 +1,6 @@
 package ${rootPackageName}.${commonPackageName}.${modulePackageName}.${moduleName}.${boPackageName};
 
-import ${rootPackageName}.${commonPackageName}.${basePackageName}.${boPackageName}.${basePackageName?cap_first}${boClassName};
+import ${rootPackageName}.${commonPackageName}.${basePackageName}.${entityPackageName}.${basePackageName?cap_first}Pojo;
 import ${rootPackageName}.${commonPackageName}.${modulePackageName}.${moduleName}.${entityPackageName}.${table.className};
 
 import org.springframework.beans.BeanUtils;
@@ -23,7 +23,7 @@ import java.util.Date;
 <#if swaggerEnable == "true">
 @ApiModel(value = "${table.annotation}")
 </#if>
-public class ${table.className}${boClassName} implements ${basePackageName?cap_first}${boClassName}<${table.className}> {
+public class ${table.className}${boClassName} implements ${basePackageName?cap_first}Pojo<${table.className}> {
     <#list table.columnList as item>
 	<#if !systemColumns?seq_contains(item.name)>
 

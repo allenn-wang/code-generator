@@ -165,11 +165,11 @@ public class TableTask extends TaskHandler implements Task {
                         .append(StringUtil.package2Path(entityPackageName)).append(File.separator)
                         .append(StringUtil.upperFirstChar(basePackageName)).append(entityClassName).append(".java");
                 break;
-            case com.allenn.generator.constants.Constant.TaskType.BASE_BO:
+            case com.allenn.generator.constants.Constant.TaskType.BASE_POJO:
                 fileDirBuilder.append(commonProjectJavaDir).append(File.separator)
                         .append(basePackageName).append(File.separator)
-                        .append(StringUtil.package2Path(boPackageName)).append(File.separator)
-                        .append(StringUtil.upperFirstChar(basePackageName)).append(boClassName).append(".java");
+                        .append(StringUtil.package2Path(entityPackageName)).append(File.separator)
+                        .append(StringUtil.upperFirstChar(basePackageName)).append("Pojo.java");
                 break;
             case com.allenn.generator.constants.Constant.TaskType.BASE_DAO:
                 fileDirBuilder.append(commonProjectJavaDir).append(File.separator)

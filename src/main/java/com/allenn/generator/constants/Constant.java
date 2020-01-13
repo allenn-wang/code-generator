@@ -32,7 +32,7 @@ public interface Constant {
         int ENTITY = 21;
         int ENUM = 22;
         int BO = 23;
-        int BASE_BO = 24;
+        int BASE_POJO = 24;
     }
 
     interface JavaType {
