@@ -29,7 +29,7 @@ public class CommonGenerator extends AbstractGenerator {
         List<String> buildTables = ConfigUtil.getConfiguration().getBuildTables();
         for (Table table : tables) {
             if (buildTables != null && buildTables.contains(table.getName())) {
-                tableTasks.add(new TableTask(Constant.TaskType.CONTROLLER, table));
+//                tableTasks.add(new TableTask(Constant.TaskType.CONTROLLER, table));
                 tableTasks.add(new TableTask(Constant.TaskType.DAO, table));
                 tableTasks.add(new TableTask(Constant.TaskType.ENTITY, table));
                 tableTasks.add(new TableTask(Constant.TaskType.BO, table));

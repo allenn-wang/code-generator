@@ -4,6 +4,7 @@ package ${rootPackageName}.${commonPackageName}.${basePackageName};
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
+import org.apache.commons.lang3.StringUtils;
 
 /**
 * @Author:  ${author}
@@ -52,6 +53,14 @@ public class ResultObject<T> {
     }
 
     public static <T> ResultObject<T> failed(IResultCode resultCode) {
+        return failed(resultCode.getCode(), resultCode.getMessage());
+    }
+
+    public static <T> ResultObject<T> failed(String code, String message) {
+        if (StringUtils.isEmpty(businessException.getCode())
+                || StringUtils.isEmpty(businessException.getMessage())) {
+            return failed();
+        }
         return new ResultObject<T>(resultCode.getCode(), resultCode.getMessage(), null);
     }
 
