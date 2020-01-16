@@ -22,7 +22,7 @@ public class BusinessExceptionHandler {
     @ResponseBody
     public ResultObject handleException(BusinessException e) {
         log.warn(e.getMessage(), e);
-        return ResultObject.failed(e);
+        return ResultObject.failed(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

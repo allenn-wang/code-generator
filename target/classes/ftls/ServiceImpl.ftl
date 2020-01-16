@@ -149,9 +149,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     </#if>
     public int deleteSoftByPrimaryKey(${table.primaryKeyColumn.javaType} ${table.primaryKeyColumn.propertyName}) {
         ${table.className} ${table.className?uncap_first} = new ${table.className}();
-        ${table.className?uncap_first}.set${table.primaryKeyColumn.propertyName?cap_first}(${table.primaryKeyColumn.propertyName});
-        ${table.className?uncap_first}.setIsDelete(1);
-        ${table.className?uncap_first}.defaultUpdateValue();
+        ${table.className?uncap_first}.setDelete(${table.primaryKeyColumn.propertyName});
         return this.${table.className?uncap_first}${daoClassName}.updateByPrimaryKeySelective(${table.className?uncap_first});
     }
 
@@ -161,6 +159,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
         dataType = RedisDataType.PAGE_OBJECT, argName = "queryObject", expire = ${table.commentOption.listCacheExpire}, timeUnit = TimeUnit.${table.commentOption.listCacheUnit})
 </#if>
     public PageObject<${table.className}> queryPageList(QueryObject queryObject) {
+        defaultQueryObject(queryObject);
         PageHelper.startPage(queryObject.getPageNum(), queryObject.getPageSize());
         return PageObject.restPage(this.${table.className?uncap_first}${daoClassName}.queryList(queryObject));
     }
@@ -171,6 +170,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
         dataType = RedisDataType.LIST, argName = "queryObject", expire = ${table.commentOption.listCacheExpire}, timeUnit = TimeUnit.${table.commentOption.listCacheUnit})
 </#if>
     public List<${table.className}> queryList(QueryObject queryObject) {
+        defaultQueryObject(queryObject);
         return this.${table.className?uncap_first}${daoClassName}.queryList(queryObject);
     }
 

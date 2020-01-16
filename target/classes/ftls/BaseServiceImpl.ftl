@@ -1,5 +1,6 @@
 package ${rootPackageName}.${commonPackageName}.${basePackageName}.${serviceImplPackageName};
 
+import ${rootPackageName}.${commonPackageName}.${basePackageName}.QueryObject;
 import ${rootPackageName}.${commonPackageName}.${basePackageName}.${entityPackageName}.${basePackageName?cap_first}${entityClassName};
 import ${rootPackageName}.${commonPackageName}.${basePackageName}.${servicePackageName}.${basePackageName?cap_first}${serviceClassName};
 import ${rootPackageName}.${commonPackageName}.${basePackageName}.${daoPackageName}.${basePackageName?cap_first}${daoClassName};
@@ -62,5 +63,12 @@ public abstract class ${basePackageName?cap_first}${serviceClassName}${serviceIm
     @Override
     public int batchUpdate(List<T> entityList) {
         return get${basePackageName?cap_first}${daoClassName}().batchUpdate(entityList);
+    }
+
+    protected void defaultQueryObject(QueryObject queryObject) {
+        if (null == queryObject) {
+            queryObject = new QueryObject();
+        }
+        queryObject.addNotDeleteCondition();
     }
 }
