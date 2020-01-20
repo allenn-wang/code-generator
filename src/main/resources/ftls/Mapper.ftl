@@ -11,10 +11,13 @@
         <include refid="${table.className}Common.Base_Column_List" />
         from ${table.name}
         <if test="_parameter != null">
-            <include refid="${table.className}Common.Example_Where_Clause"/>
-            <if test= "orderBy != null and orderBy != ''">
-                <include refid="${table.className}Common.Order_By_Clause"/>
-            </if>
+        <where>
+            <include refid="${table.className}Common.Where_Clause"/>
+        </where>
+        <if test= "orderBy != null and orderBy != ''">
+            order by
+            <include refid="${table.className}Common.Order_By_Clause"/>
+        </if>
         </if>
     </select>
 
@@ -28,7 +31,9 @@
     <select id="count" parameterType="${rootPackageName}.${commonPackageName}.${basePackageName}.QueryObject" resultType="java.lang.Long">
         select count(*) total from ${table.name}
         <if test="_parameter != null">
-            <include refid="${table.className}Common.Example_Where_Clause"/>
+        <where>
+            <include refid="${table.className}Common.Where_Clause"/>
+        </where>
         </if>
     </select>
 
