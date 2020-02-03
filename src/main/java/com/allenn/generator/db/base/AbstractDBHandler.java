@@ -222,14 +222,16 @@ public abstract class AbstractDBHandler implements DBHandler {
                 booleans.put("0", "否");
                 booleans.put("1", "是");
                 columnCommentOption.setAllowValues(booleans);
+            } else if (Constant.FieldServiceType.ENUM.equals(columnCommentOption.getDataType())) {
+                if (anns.length == 3) {
+                    columnCommentOption.setAllowValues(JSON.parseObject(anns[2], Map.class));
+                } else if (anns.length == 4) {
+                    columnCommentOption.setAllowValues(JSON.parseObject(anns[3], Map.class));
+                }
             }
             if (anns.length > 2) {
                 handleOptionJson(JSON.parseObject(anns[2], FieldOptionJson.class),
                         columnCommentOption, column);
-                // 枚举类型
-                if (Constant.FieldServiceType.ENUM.equals(columnCommentOption.getDataType())) {
-                    columnCommentOption.setAllowValues(JSON.parseObject(anns[anns.length - 1], Map.class));
-                }
             }
         }
         return columnCommentOption;
