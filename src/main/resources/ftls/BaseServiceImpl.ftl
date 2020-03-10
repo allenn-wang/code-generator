@@ -61,6 +61,11 @@ public abstract class ${basePackageName?cap_first}${serviceClassName}${serviceIm
     }
 
     @Override
+    public int batchUpdateSelective(List<T> entityList) {
+        return get${basePackageName?cap_first}${daoClassName}().batchUpdate(entityList);
+    }
+
+    @Override
     public int batchUpdate(List<T> entityList) {
         return get${basePackageName?cap_first}${daoClassName}().batchUpdate(entityList);
     }

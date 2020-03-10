@@ -155,7 +155,7 @@
 		</foreach>
     </insert>
 
-    <update id="batchUpdate"  parameterType="java.util.List">
+    <update id="batchUpdateSelective"  parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update ${table.name}
             <set>
@@ -164,6 +164,20 @@
 			    <if test="item.${col.propertyName} != null" >
                     ${col.name} = ${"#{"}item.${col.propertyName},jdbcType=${col.jdbcType}},
 			    </if>
+		    </#if>
+        </#list>
+            </set>
+            where ${table.primaryKeyColumn.name} = ${"#{"}item.${table.primaryKeyColumn.propertyName},jdbcType=${table.primaryKeyColumn.jdbcType}}
+        </foreach>
+    </update>
+
+    <update id="batchUpdate"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update ${table.name}
+            <set>
+        <#list table.columnList as col>
+		    <#if col.name != table.primaryKeyColumn.name>
+                ${col.name} = ${"#{"}item.${col.propertyName},jdbcType=${col.jdbcType}},
 		    </#if>
         </#list>
             </set>

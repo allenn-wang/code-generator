@@ -22,46 +22,34 @@
     </#list>
     </sql>
 
-    <sql id="Example_Where_Clause">
-        <where>
-        <#if table.quickSearchCols?? && (table.quickSearchCols?size > 0)>
-            <if test="keywordVal != null and keywordVal != ''">
-                (
-            <#list table.quickSearchCols as item>
-                ${table.name}.${item.name} like ${"#"}{keywordVal}<#if item_has_next> or </#if>
-            </#list>
-                ) and 1 = 1
-            </if>
-        </#if>
-            <foreach collection="conditionList" item="condition" separator="and" open="and">
-				<#list table.columnList as item>
-                    <if test="'${item.propertyName}' == condition.name" >
-                        <choose>
-                            <when test="condition.betweenValue">
-                                ${table.name}.${item.name} between ${"#"}{condition.value} and ${"#"}{condition.betweenValue}
-                            </when>
-                            <otherwise>
-                                <choose>
-                                    <when test="condition.operVal == 'in'">
-                                        ${table.name}.${item.name} in
-                                        <foreach collection="condition.inValues" item="inItem" open="(" separator="," close=")">
-                                            ${"#"}{inItem}
-                                        </foreach>
-                                    </when>
-                                    <otherwise>
-                                        ${table.name}.${item.name} ${"$"}{condition.operVal} ${"#"}{condition.value}
-                                    </otherwise>
-                                </choose>
-                            </otherwise>
-                        </choose>
-                    </if>
-                </#list>
-            </foreach>
-        </where>
+    <sql id="Where_Clause">
+    <foreach collection="conditionList" item="condition" separator="and" open="and">
+        <#list table.columnList as item>
+        <if test="'${item.propertyName}' == condition.name" >
+            <choose>
+                <when test="condition.betweenValue">
+                    ${table.name}.${item.name} between ${"#"}{condition.value} and ${"#"}{condition.betweenValue}
+                </when>
+                <otherwise>
+                    <choose>
+                        <when test="condition.operVal == 'in'">
+                            ${table.name}.${item.name} in
+                            <foreach collection="condition.inValues" item="inItem" open="(" separator="," close=")">
+                                ${"#"}{inItem}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            ${table.name}.${item.name} ${"$"}{condition.operVal} ${"#"}{condition.value}
+                        </otherwise>
+                    </choose>
+                </otherwise>
+            </choose>
+        </if>
+        </#list>
+    </foreach>
     </sql>
 
     <sql id="Order_By_Clause">
-        order by
         <foreach collection="orderSortList" item="orderSort">
         <#list table.columnList as item>
         <#if item.name != table.primaryKeyColumn.name>

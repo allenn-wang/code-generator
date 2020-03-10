@@ -58,6 +58,15 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @Override
 <#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
+    dataType = RedisDataType.LIST, argName = "${table.className?uncap_first}List", foreignKeys = "<#list table.foreignKeyCols as item>#entity.${item.propertyName}<#if item_has_next>,</#if></#list>")
+</#if>
+    public int batchUpdateSelective(List<${table.className}> ${table.className?uncap_first}List) {
+        return super.batchUpdateSelective(${table.className?uncap_first}List);
+}
+
+    @Override
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
+    @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
         dataType = RedisDataType.LIST, argName = "${table.className?uncap_first}List", foreignKeys = "<#list table.foreignKeyCols as item>#entity.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
     public int batchUpdate(List<${table.className}> ${table.className?uncap_first}List) {
@@ -85,7 +94,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @Override
 <#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.DELETE,
-        dataType = RedisDataType.OBJECT, argName = "${table.primaryKeyColumn.propertyName}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
+        dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
     public int deleteBySelective(${table.className} ${table.className?uncap_first}) {
@@ -95,7 +104,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @Override
 <#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.DELETE,
-        dataType = RedisDataType.OBJECT, argName = "${table.primaryKeyColumn.propertyName}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
+        dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
     public int deleteSoftBySelective(${table.className} ${table.className?uncap_first}) {

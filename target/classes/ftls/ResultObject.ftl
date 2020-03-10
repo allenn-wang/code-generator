@@ -57,11 +57,10 @@ public class ResultObject<T> {
     }
 
     public static <T> ResultObject<T> failed(String code, String message) {
-        if (StringUtils.isEmpty(businessException.getCode())
-                || StringUtils.isEmpty(businessException.getMessage())) {
+        if (StringUtils.isEmpty(code) || StringUtils.isEmpty(message)) {
             return failed();
         }
-        return new ResultObject<T>(resultCode.getCode(), resultCode.getMessage(), null);
+        return new ResultObject<T>(code, message, null);
     }
 
     public static <T> ResultObject<T> failed(String message) {

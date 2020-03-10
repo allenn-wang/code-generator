@@ -53,6 +53,18 @@ public class PageObject<T> {
         return result;
     }
 
+    public static <T> PageObject<T> copyPage(PageObject<?> pageObject, Class<T> clazz) {
+        String source = JSON.toJSONString(pageObject.getList());
+        List<T> target = JSON.parseArray(sourceList, clazz);
+        PageObject<T> result = new PageObject<T>();
+        result.setTotalPage(pageObject.getTotalPage());
+        result.setPageNum(pageObject.getPageNum());
+        result.setPageSize(pageObject.getPageSize());
+        result.setTotal(pageObject.getTotal());
+        result.setList(target);
+        return result;
+    }
+
     public Integer getPageNum() {
         return pageNum;
     }

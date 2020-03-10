@@ -28,5 +28,7 @@ public interface ${basePackageName?cap_first}${daoClassName}<T extends ${basePac
 
     int batchInsert(List<T> entityList);
 
+    int batchUpdateSelective(List<T> entityList);
+
     int batchUpdate(List<T> entityList);
 }

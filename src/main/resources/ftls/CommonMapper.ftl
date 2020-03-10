@@ -22,38 +22,7 @@
     </#list>
     </sql>
 
-    <resultMap id="${table.className}${boClassName}" type="${rootPackageName}.${commonPackageName}.${modulePackageName}.${boPackageName}.${table.className}${boClassName}">
-    <#list table.columnList as item>
-    <#if !defaultColumns?seq_contains(item.name)>
-    <#if item.name = table.primaryKeyColumn.name>
-        <id column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
-    <#else>
-        <result column="${item.name}" property="${item.propertyName}" jdbcType="${item.jdbcType}" javaType="${item.javaType}"/>
-    </#if>
-    </#if>
-    </#list>
-    </resultMap>
-
-    <sql id="Bo_Column_List" >
-        <trim suffixOverrides = ",">
-        <#list table.columnList as item>
-        <#if !defaultColumns?seq_contains(item.name)>
-            ${table.name}.${item.name}<#if item_has_next>,</#if>
-        </#if>
-        </#list>
-        </trim>
-    </sql>
-
     <sql id="Where_Clause">
-    <#if table.quickSearchCols?? && (table.quickSearchCols?size > 0)>
-        <if test="keywordVal != null and keywordVal != ''">
-            (
-        <#list table.quickSearchCols as item>
-            ${table.name}.${item.name} like ${"#"}{keywordVal}<#if item_has_next> or </#if>
-        </#list>
-            ) and 1 = 1
-        </if>
-    </#if>
     <foreach collection="conditionList" item="condition" separator="and" open="and">
         <#list table.columnList as item>
         <if test="'${item.propertyName}' == condition.name" >

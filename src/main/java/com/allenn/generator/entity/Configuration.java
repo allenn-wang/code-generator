@@ -34,9 +34,6 @@ public class Configuration implements Serializable {
     // 项目基础包名 code's root package, e.g. the service code path: package + "." + path.service
     private String rootPackageName;
 
-    //是否忽略表名前缀
-    private String ignoreTableNamePrefix = "false";
-
     //是否需要缓存
     private String cacheEnable = "false";
 
@@ -110,14 +107,6 @@ public class Configuration implements Serializable {
 
     public void setRootPackageName(String rootPackageName) {
         this.rootPackageName = rootPackageName;
-    }
-
-    public String getIgnoreTableNamePrefix() {
-        return ignoreTableNamePrefix;
-    }
-
-    public void setIgnoreTableNamePrefix(String ignoreTableNamePrefix) {
-        this.ignoreTableNamePrefix = ignoreTableNamePrefix;
     }
 
     public String getCacheEnable() {

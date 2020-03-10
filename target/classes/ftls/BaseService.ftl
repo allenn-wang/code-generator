@@ -29,5 +29,7 @@ public interface ${basePackageName?cap_first}${serviceClassName}<T extends ${bas
 
     int batchInsert(List<T> entityList);
 
+    int batchUpdateSelective(List<T> entityList);
+
     int batchUpdate(List<T> entityList);
 }

@@ -93,7 +93,7 @@ public class ${table.className}${controllerClassName} extends ${basePackageName?
 </#if>
     @PostMapping(value = "/list")
     public ResultObject<List<${table.className}>> query(@RequestBody(required = false) QueryObject queryObject) {
-    return ResultObject.success(${table.className?uncap_first}${serviceClassName}.queryList(queryObject));
+        return ResultObject.success(${table.className?uncap_first}${serviceClassName}.queryList(queryObject));
     }
 
 <#if swaggerEnable == "true">

@@ -29,7 +29,7 @@ public class ${table.className}${boClassName} implements ${basePackageName?cap_f
 
     // ${item.annotation}
 	<#if swaggerEnable == "true">
-	@ApiModelProperty(value = "${item.commentOption.label}<#list item.commentOption.allowValues?keys as key>  ${key}:${item.commentOption.allowValues[key]}</#list>")
+	@ApiModelProperty(value = "${item.commentOption.label}")
 	</#if>
 	<#if item.javaType=="Date">
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
