@@ -128,7 +128,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
     </#if>
     public int insertSelective(${table.className} ${table.className?uncap_first}) {
-        return super.insert(${table.className?uncap_first});
+        return super.insertSelective(${table.className?uncap_first});
     }
 
     @Override
