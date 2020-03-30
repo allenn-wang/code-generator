@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 */
 @Service
 @Slf4j
-@Transactional(rollbackFor = Throwable.class)
 public class ${table.className}${serviceClassName}${serviceImplClassName} extends ${basePackageName?cap_first}${serviceClassName}${serviceImplClassName}<${table.className}, ${table.primaryKeyColumn.javaType}> implements ${table.className}${serviceClassName} {
 
     @Autowired
@@ -51,6 +50,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.INSERT,
         dataType = RedisDataType.LIST, argName = "${table.className?uncap_first}List", foreignKeys = "<#list table.foreignKeyCols as item>#entity.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int batchInsert(List<${table.className}> ${table.className?uncap_first}List) {
         return super.batchInsert(${table.className?uncap_first}List);
     }
@@ -60,6 +60,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
     dataType = RedisDataType.LIST, argName = "${table.className?uncap_first}List", foreignKeys = "<#list table.foreignKeyCols as item>#entity.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int batchUpdateSelective(List<${table.className}> ${table.className?uncap_first}List) {
         return super.batchUpdateSelective(${table.className?uncap_first}List);
     }
@@ -69,15 +70,16 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
         dataType = RedisDataType.LIST, argName = "${table.className?uncap_first}List", foreignKeys = "<#list table.foreignKeyCols as item>#entity.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int batchUpdate(List<${table.className}> ${table.className?uncap_first}List) {
         return super.batchUpdate(${table.className?uncap_first}List);
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.SELECT,
         dataType = RedisDataType.OBJECT, argName = "${table.primaryKeyColumn.propertyName}", expire = ${table.commentOption.singleCacheExpire}, timeUnit = TimeUnit.${table.commentOption.singleCacheUnit})
-    </#if>
+</#if>
     public ${table.className} selectByPrimaryKey(${table.primaryKeyColumn.javaType} ${table.primaryKeyColumn.propertyName}) {
         return super.selectByPrimaryKey(${table.primaryKeyColumn.propertyName});
     }
@@ -87,6 +89,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.DELETE,
         dataType = RedisDataType.OBJECT, argName = "${table.primaryKeyColumn.propertyName}")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int deleteByPrimaryKey(${table.primaryKeyColumn.javaType} ${table.primaryKeyColumn.propertyName}) {
         return super.deleteByPrimaryKey(${table.primaryKeyColumn.propertyName});
     }
@@ -97,6 +100,7 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int deleteBySelective(${table.className} ${table.className?uncap_first}) {
         return super.deleteBySelective(${table.className?uncap_first});
     }
@@ -107,55 +111,61 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
 </#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int deleteSoftBySelective(${table.className} ${table.className?uncap_first}) {
         return super.deleteSoftBySelective(${table.className?uncap_first});
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.INSERT,
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
-    </#if>
+</#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int insert(${table.className} ${table.className?uncap_first}) {
         return super.insert(${table.className?uncap_first});
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.INSERT,
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
-    </#if>
+</#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int insertSelective(${table.className} ${table.className?uncap_first}) {
         return super.insertSelective(${table.className?uncap_first});
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
-    </#if>
+</#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int updateByPrimaryKey(${table.className} ${table.className?uncap_first}) {
         return super.updateByPrimaryKey(${table.className?uncap_first});
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.UPDATE,
         dataType = RedisDataType.OBJECT, argName = "${table.className?uncap_first}", key = "#${table.className?uncap_first}.${table.primaryKeyColumn.propertyName}",
         foreignKeys = "<#list table.foreignKeyCols as item>#${table.className?uncap_first}.${item.propertyName}<#if item_has_next>,</#if></#list>")
-    </#if>
+</#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int updateByPrimaryKeySelective(${table.className} ${table.className?uncap_first}) {
         return super.updateByPrimaryKeySelective(${table.className?uncap_first});
     }
 
     @Override
-    <#if cacheEnable == "true" && table.commentOption.cacheEnable>
+<#if cacheEnable == "true" && table.commentOption.cacheEnable>
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.DELETE,
         dataType = RedisDataType.OBJECT, argName = "${table.primaryKeyColumn.propertyName}")
-    </#if>
+</#if>
+    @Transactional(rollbackFor = Throwable.class)
     public int deleteSoftByPrimaryKey(${table.primaryKeyColumn.javaType} ${table.primaryKeyColumn.propertyName}) {
         ${table.className} ${table.className?uncap_first} = new ${table.className}();
         ${table.className?uncap_first}.setDelete(${table.primaryKeyColumn.propertyName});
