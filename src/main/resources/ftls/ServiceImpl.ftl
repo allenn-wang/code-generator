@@ -214,8 +214,8 @@ public class ${table.className}${serviceClassName}${serviceImplClassName} extend
     @RedisCache(schema = RedisSchema.${entityModuleName?upper_case}_${table.name?upper_case}, operate = RedisCacheOperate.SELECT,
         dataType = RedisDataType.FOREIGN_LIST, argName = "${item.propertyName}", expire = ${table.commentOption.listCacheExpire}, timeUnit = TimeUnit.${table.commentOption.listCacheUnit})
     </#if>
-    public List<${table.className}> selectListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName}) {
-        return this.${table.className?uncap_first}${daoClassName}.selectListBy${item.propertyName?cap_first}(${item.propertyName});
+    public List<${table.className}> queryListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName}) {
+        return this.${table.className?uncap_first}${daoClassName}.queryListBy${item.propertyName?cap_first}(${item.propertyName});
     }
 
 </#list>

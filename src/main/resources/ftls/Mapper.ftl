@@ -45,7 +45,7 @@
     </select>
 
     <#list table.foreignKeyCols as item>
-    <select id="selectListBy${item.propertyName?cap_first}" parameterType="java.lang.${item.javaType}" resultMap="${table.className}Common.${table.className}">
+    <select id="queryListBy${item.propertyName?cap_first}" parameterType="java.lang.${item.javaType}" resultMap="${table.className}Common.${table.className}">
         select
         <include refid="${table.className}Common.Base_Column_List" />
         from ${table.name}

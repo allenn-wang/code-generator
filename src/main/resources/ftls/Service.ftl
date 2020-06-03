@@ -25,7 +25,7 @@ public interface ${table.className}${serviceClassName} extends ${basePackageName
     Long count(QueryObject queryObject);
 
 <#list table.foreignKeyCols as item>
-    List<${table.className}> selectListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName});
+    List<${table.className}> queryListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName});
 
 </#list>
 }

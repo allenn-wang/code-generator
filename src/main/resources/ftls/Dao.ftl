@@ -21,7 +21,7 @@ public interface ${table.className}${daoClassName} extends ${basePackageName?cap
     List<${table.className}> queryTotalList();
 
     <#list table.foreignKeyCols as item>
-    List<${table.className}> selectListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName});
+    List<${table.className}> queryListBy${item.propertyName?cap_first}(${item.javaType} ${item.propertyName});
 
     </#list>
     Long count(QueryObject queryObject);
