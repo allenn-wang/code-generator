@@ -32,7 +32,7 @@ public class CommonGenerator extends AbstractGenerator {
 //                tableTasks.add(new TableTask(Constant.TaskType.CONTROLLER, table));
                 tableTasks.add(new TableTask(Constant.TaskType.DAO, table));
                 tableTasks.add(new TableTask(Constant.TaskType.ENTITY, table));
-                tableTasks.add(new TableTask(Constant.TaskType.BO, table));
+//                tableTasks.add(new TableTask(Constant.TaskType.BO, table));
                 tableTasks.add(new TableTask(Constant.TaskType.SERVICE, table));
                 tableTasks.add(new TableTask(Constant.TaskType.SERVICE_IMPL, table));
                 tableTasks.add(new TableTask(Constant.TaskType.MAPPER, table));
