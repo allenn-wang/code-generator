@@ -1,19 +1,19 @@
-moduleName: platform
+moduleName: demo
 
 modules:
-  platform:
+  demo:
     author: allenn wang
-    rootPackageName: com.zego.davinci
-    dataBaseName: platform
-    moduleName: platform
+    rootPackageName: com.allenwang
+    dataBaseName: demo
+    moduleName: demo
     coreProjectName:
     commonProjectName:
     cacheEnable: false
     swaggerEnable: false
     db:
-      url: jdbc:mysql://davinci-mysql.zego.im:3306/platform
-      username: root
-      password: Davinci@1
+      url: jdbc:mysql://demo:3306/demo
+      username: demo
+      password: demo
     path:
       controller: controller
       service: service
@@ -30,8 +30,7 @@ modules:
       - is_delete
       - is_inner
     buildTables:
-      - am_app_system_config
+      - test_table
 
     cacheTables:
-      - om_advertisement
-      - am_app_system_config
+      - test_table
